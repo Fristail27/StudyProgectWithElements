@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.onIn {
+    align-self:center;
+    font-weight: bold;
+}
+.offIn {
+    align-self:center;
+    font-weight: bold;
+}

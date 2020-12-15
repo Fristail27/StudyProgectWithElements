@@ -1,0 +1,21 @@
+.selectM {
+    display: inline-block;
+}
+
+.selectTitle {
+    vertical-align: top;
+    display: inline-block;
+    border: 1px black solid;
+    min-height: 20px;
+    min-width: 70px;
+}
+
+.selectBody{
+    position: absolute;
+    border: 1px black solid;
+    padding: 5px;
+}
+.item.selected {
+    background-color: blue;
+    color: white;
+}

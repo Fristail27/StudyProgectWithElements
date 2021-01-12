@@ -5,10 +5,15 @@ type ItemType = {
     title: string,
     value: any,
 }
+type CityType = {
+    City: string,
+    Country:string,
+    Populate: number
+}
 
 type SelectPropsType = {
     value?: any,
-    items: ItemType[],
+    items: ItemType[] | CityType[],
     onChange: (i: any) => void,
 }
 
@@ -65,7 +70,7 @@ function Select(props: SelectPropsType) {
             <div className={s.selectTitle}>{selectedItem && selectedItem.title}</div>
             {!collapseStatus &&
             <div className={s.selectBody}>
-                {props.items.map((i, index) => <div
+                {props.items.map((i:any, index:any) => <div
                     onMouseEnter={() => setHoveredElementValue(i.value)}
                     className={s.item + " " + (hoveredItem === i ? s.selected : "")}
                     onClick={() => {onItemClick(i)}}

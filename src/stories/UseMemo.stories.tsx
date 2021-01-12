@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 
 export default {
     title: "UseMemo",
@@ -44,31 +44,45 @@ export const DifficultCountingExample = () => {
 
 }
 
-const UsersSecret = (props: {users: Array<string>}) => {
-    console.log("2323")
-    return <div>{
-        props.users.map((u:any,i:any)=> <div key={i}>{u}</div>)
+type PropsType = {
+ books: Array<string>
+ addBook: () => void
+}
+
+const BooksSecret = (props: PropsType) => {
+    return <div>
+        <button onClick={()=>{props.addBook()}}>Add book</button>
+        {
+        props.books.map((u:any,i:any)=> <div key={i}>{u}</div>)
     }</div>
 }
 
-const Users = React.memo(UsersSecret)
+const Books = React.memo(BooksSecret)
 
 export const HelpsForReactMEMOExample = () => {
     const [counter, setCounter] = useState(0)
-    const [users, setUsers] = useState(["Dimych", "Valera", "Artem", "Valera2"])
-    console.log("111")
-    const addUser = () => {
-        const newUsers = [...users, "sveta"+ new Date().getTime()]
-        setUsers(newUsers)
-    }
+    const [books, setBooks] = useState(["React", "JS", "CSS", "HTML"])
+
+    // const memoizedAddBook = useMemo(()=>{
+    //     return () => {
+    //         const newUsers = [...books, "Angular"+ new Date().getTime()]
+    //         setBooks(newUsers)
+    //     }
+    // }, [books])
+
+    const memoizedAddBook = useCallback(()=>{
+        return () => {
+            const newUsers = [...books, "Angular"+ new Date().getTime()]
+            setBooks(newUsers)
+        }
+    }, [books])
     const newArray = useMemo(()=> {
-        const newArray=users.filter(u => u.toLowerCase().indexOf("a")> -1)
+        const newArray=books.filter(u => u.toLowerCase().indexOf("a")> -1)
         return newArray
-    }, [users])
+    }, [books])
     return <>
         <button onClick={()=>{setCounter(counter+1)}}>+</button>
-        <button onClick={()=>{addUser()}}>+</button>
         {counter}
-        <Users users={newArray}/>
+        <Books books={newArray} addBook={memoizedAddBook}/>
     </>
 }

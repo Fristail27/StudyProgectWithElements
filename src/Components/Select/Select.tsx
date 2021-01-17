@@ -6,7 +6,7 @@ type ItemType = {
     value: any,
 }
 type CityType = {
-    City: string,
+    value: string,
     Country:string,
     Populate: number
 }
@@ -17,7 +17,7 @@ type SelectPropsType = {
     onChange: (i: any) => void,
 }
 
-function Select(props: SelectPropsType) {
+function Select(props: any) {
     let [collapseStatus, setCollapseStatus] = useState<boolean>(true);
     let [hoveredElementValue, setHoveredElementValue] = useState<string>(props.value);
 
@@ -34,8 +34,8 @@ function Select(props: SelectPropsType) {
         setCollapseStatus(true);
     }
 
-    const selectedItem = props.items.find(i => i.value === props.value);
-    const hoveredItem = props.items.find(i => i.value === hoveredElementValue);
+    const selectedItem = props.items.find((i:any) => i.value === props.value);
+    const hoveredItem = props.items.find((i:any) => i.value === hoveredElementValue);
     const onKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             for (let i = 0; i < props.items.length; i++) {
@@ -64,10 +64,11 @@ function Select(props: SelectPropsType) {
             }
         }
     }
+    console.log(props.items)
 
     return (
-        <div tabIndex={0} onKeyUp={onKeyUp} onClick={selectCollapse} className={s.selectM}>
-            <div className={s.selectTitle}>{selectedItem && selectedItem.title}</div>
+        <div style={{margin:"25px"}} tabIndex={0} onKeyUp={onKeyUp} onClick={selectCollapse} className={s.selectM}>
+            <div className={s.selectTitle}>{selectedItem && selectedItem.value}</div>
             {!collapseStatus &&
             <div className={s.selectBody}>
                 {props.items.map((i:any, index:any) => <div
@@ -75,7 +76,7 @@ function Select(props: SelectPropsType) {
                     className={s.item + " " + (hoveredItem === i ? s.selected : "")}
                     onClick={() => {onItemClick(i)}}
                     key={index}>
-                    {i.value}:{i.title}
+                    {i.value}
                 </div>)}
             </div>}
         </div>

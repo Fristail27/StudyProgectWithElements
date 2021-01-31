@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 export default {
-    title: "useEffect demo",
+    title: "useEffect demo reset",
 }
 
 export const ResetEffectExample = () => {
@@ -30,12 +30,12 @@ export const KeysTrackerExample = () => {
 
     useEffect(()=>{
         const handler = (e:KeyboardEvent)=>{
-            console.log(e.code)
+            console.log(e.key)
             setText(text + e.key)
         }
         window.document.addEventListener("keypress", handler)
         return ()=> {
-            window.removeEventListener("keypress", handler)
+            window.document.removeEventListener("keypress", handler)
         }
     },[text])
 
